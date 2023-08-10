@@ -3,7 +3,7 @@ Image Processing Library is a C++ library designed for performing various image 
 This library provides functions to manipulate images, apply filters, perform edge detection, enhance image quality, and more. It aims to simplify image processing tasks by offering an easy-to-use interface while maintaining efficient processing.
 
 ## Features
-ImageProc++ offers the following features:
+The library offers the following features:
 1. __2-D Discrete Convolution__: Perform convolution operations on images using custom kernels for tasks like blurring, sharpening, and more.
 2. __Edge-Detection__: Detect edges in images using techniques like Sobel, Canny, and Prewitt edge detection.
 3. __Spatial Filtering__: Apply spatial filters to images for noise reduction and enhancement.
