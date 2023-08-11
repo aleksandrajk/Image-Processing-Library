@@ -81,6 +81,124 @@ void ImageProcessing ::copyImgData(unsigned char *_srcBuf, unsigned char *_destB
     }
 }
 
+void ImageProcessing::binarizeImage(unsigned char *_inImgData, unsigned char *_outImgData, int imgSize, int threshold)
+{
+    for(int i=0;i<imgSize;i++)
+    {
+        _outImgData[i] =  (_inImgData[i] > threshold) ? WHITE :BLACK;
+    }
+}
+void ImageProcessing::brigthnessUp(unsigned char *_inputImgData, unsigned char *_outImgData, int imgSize, int brightness)
+{
+
+    for(int i =0;i<imgSize;i++)
+    {
+        int temp = _inputImgData[i]+ brightness;
+        _outImgData[i] =  (temp > MAX_COLOR)? MAX_COLOR :temp;
+    }
+}
+
+void ImageProcessing::brigthnessDown(unsigned char *_inputImgData, unsigned char *_outImgData, int imgSize, int darkness)
+{
+    for(int i =0;i<imgSize;i++)
+    {
+        int temp = _inputImgData[i] - darkness;
+        _outImgData[i] = (temp<MIN_COLOR) ? MIN_COLOR :temp;
+    }
+}
+
+void ImageProcessing::computeHistogram(unsigned char * _imgData, int imgRows, int imgCols, float hist[])
+{
+    FILE *fptr;
+    fptr =fopen("image_hist.txt","w");
+
+    int x,y,i,j;
+    long int ihist[255],sum;
+    for(i =0;i<=255;i++)
+    {
+        ihist[i] =0;
+    }
+    sum =0;
+    for(y=0;y<imgRows;y++)
+    {
+        for(x=0;x<imgCols;x++)
+        {
+            j = *(_imgData+x+y*imgCols);
+            ihist[j] = ihist[j] +1;
+            sum = sum+1;
+        }
+
+    }
+    for(i=0;i<255;i++)
+        hist[i] =  (float)ihist[i]/(float)sum;
+    for(int i=0;i<255;i++)
+    {
+        fprintf(fptr,"\n%f",hist[i]);
+    }
+    fclose(fptr);
+}
+
+
+void ImageProcessing::computeHistogram2(unsigned char * _imgData, int imgRows, int imgCols, float hist[],const char *histFile)
+{
+    FILE *fptr;
+    fptr =fopen(histFile,"w");
+
+    int x,y,i,j;
+    long int ihist[255],sum;
+    for(i =0;i<=255;i++)
+    {
+        ihist[i] =0;
+    }
+    sum =0;
+    for(y=0;y<imgRows;y++)
+    {
+        for(x=0;x<imgCols;x++)
+        {
+            j = *(_imgData+x+y*imgCols);
+            ihist[j] = ihist[j] +1;
+            sum = sum+1;
+        }
+
+    }
+    for(i=0;i<255;i++)
+        hist[i] =  (float)ihist[i]/(float)sum;
+    for(int i=0;i<255;i++)
+    {
+        fprintf(fptr,"\n%f",hist[i]);
+    }
+    fclose(fptr);
+}
+
+void ImageProcessing::equalizeHistogram(unsigned char * _inputImgData, unsigned char * _outputImgData, int imgRows, int imgCols)
+{
+    int x,y,i,j;
+    int histeq[256];
+    float hist[256];
+    float sum ;
+
+    const char initHist[] ="init_hist.txt";
+    const char finalHist[] = "final_hist.txt";
+
+    computeHistogram2(&_inputImgData[0],imgRows,imgCols,&hist[0],initHist);
+    for(i =0;i<=255;i++)
+    {
+        sum =0.0;
+        for(j=0;j<=i;j++){
+            sum = sum+hist[j];
+        }
+        histeq[i] =  (int)(255*sum+0.5);
+
+    }
+    for(y =0;y<imgRows;y++)
+    {
+        for(x=0;x<imgCols;x++)
+        {
+            *(_outputImgData+x+y*imgCols) = histeq[*(_inputImgData+x+y*imgCols)];
+        }
+    }
+    computeHistogram2(&_outputImgData[0], imgRows,imgCols,&hist[0],finalHist);
+}
 ImageProcessing::~ImageProcessing()
 {
     //dtor

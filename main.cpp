@@ -5,14 +5,16 @@ using namespace std;
 
 int main()
 {
+    float imgHiSt[NO_OF_GRAYLEVELS];
+
     int imgWidth, imgHeight, imgBitDepth;
     unsigned char imgHeader[BMP_HEADER_SIZE];
     unsigned char imgColorTable[BMP_COLOR_TABLE_SIZE];
     unsigned char imgInBuffer[_512by512_IMG_SIZE];
     unsigned char imgOutBuffer[_512by512_IMG_SIZE];
 
-    const char imgName[] ="camera.bmp";
-    const char newImgName[] ="camera_copy.bmp";
+    const char imgName[] ="images/lena512.bmp";
+    const char newImgName[] ="images/lena_eqz.bmp";
 
     ImageProcessing *myImage  = new ImageProcessing(imgName,
                                                     newImgName,
@@ -26,7 +28,7 @@ int main()
     );
 
     myImage->readImage();
-    myImage->copyImgData(imgInBuffer,imgOutBuffer,_512by512_IMG_SIZE);
+    myImage->equalizeHistogram(imgInBuffer,imgOutBuffer,imgHeight,imgWidth);
     myImage->writeImage();
 
     cout<<"Success !"<<endl;

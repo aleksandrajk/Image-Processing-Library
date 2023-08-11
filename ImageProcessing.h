@@ -1,11 +1,15 @@
-
 #ifndef CRYPTO_IMAGEPROCESSING_H
 #define CRYPTO_IMAGEPROCESSING_H
 
 
-static const int  _512by512_IMG_SIZE = 262144; // 512*512
-static const int BMP_COLOR_TABLE_SIZE = 1024;
-static const int BMP_HEADER_SIZE = 54;
+static const int   _512by512_IMG_SIZE  = 262144; // 512*512
+static const int   BMP_COLOR_TABLE_SIZE= 1024;
+static const int   BMP_HEADER_SIZE     = 54;
+static const int   MAX_COLOR           = 255;
+static const int   MIN_COLOR           =  0;
+static const int   WHITE               =  MAX_COLOR;
+static const int   BLACK               =  MIN_COLOR;
+static const int   NO_OF_GRAYLEVELS     = 255;
 
 class ImageProcessing
 {
@@ -26,6 +30,12 @@ public:
     void readImage();
     void writeImage();
     void copyImgData(unsigned char *_srcBuf, unsigned char *_destBuf, int bufSize);
+    void binarizeImage(unsigned char *_inImgData, unsigned char *_outImgData, int imgSize, int threshold);
+    void brigthnessUp(unsigned char *_inputImgData, unsigned char *_outImgData, int imgSize, int brightness);
+    void brigthnessDown(unsigned char *_inputImgData, unsigned char *_outImgData, int imgSize, int darkness);
+    void computeHistogram(unsigned char * _imgData, int imgRows, int imgCols, float hist[]);
+    void computeHistogram2(unsigned char * _imgData, int imgRows, int imgCols, float hist[],const char *histFile);
+    void equalizeHistogram(unsigned char * _inputImgData, unsigned char * _outputImgData, int imgRows, int imgCols);
 
     virtual ~ImageProcessing();
 
@@ -42,6 +52,7 @@ private:
     unsigned char * inBuf;
     unsigned char * outBuf;
 };
+
 
 
 #endif //CRYPTO_IMAGEPROCESSING_H
