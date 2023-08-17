@@ -67,9 +67,13 @@ __Image equalization__ is a technique used in image processing to enhance the co
 Image equalization involves transforming the pixel intensity values of an image using a mathematical function. The basic idea is to redistribute the pixel values in a way that the resulting histogram becomes as uniform as possible. The steps involved in image equalization are as follows:
 
 __1. Compute Histogram:__ Calculate the histogram of the original image, which is a distribution of the pixel intensity values.
+
 __2. Calculate Cumulative Distribution Function (CDF):__ Calculate the cumulative distribution function of the histogram. The CDF represents the probability that a pixel has an intensity less than or equal to a given value.
+
 __3. Normalize CDF:__ Normalize the CDF so that it spans the entire intensity range (typically 0 to 255 for an 8-bit image).
+
 __4. Compute Equalization Mapping:__ Map the original intensity values to new values using the normalized CDF. This mapping redistributes the pixel values.
+
 __5. Apply Mapping:__ Replace each pixel's intensity value in the original image with its corresponding value from the equalization mapping.
 
 The equalized image should have a more balanced distribution of pixel intensities, resulting in enhanced contrast and better visualization of details.
@@ -144,12 +148,12 @@ Different masks have varying sensitivities to different edge orientations, noise
 
 2-D convolution and correlation are mathematical operations used in image processing to process images using filters or kernels. Both operations involve sliding a filter over an image and performing computations at each position. While they have similarities, they differ in how the filter values are combined with the image pixel values. Let's explore each operation:
 
-__1. 2-D Convolution:__
+__2-D Convolution:__
 
 In 2-D convolution, a filter (also known as a kernel) is applied to an image by overlaying the filter onto the image and performing element-wise multiplication followed by summation. The filter's center (also known as the anchor point) is aligned with each pixel in the image, and the filter coefficients are multiplied with the corresponding pixel values within the filter's local region. The resulting values are summed up to determine the new pixel value.
 Convolution can be used for various image-processing tasks, such as blurring, edge detection, and feature extraction. 
 
-__2. 2-D Correlation:__
+__2-D Correlation:__
 
 2-D correlation is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
 
