@@ -4,15 +4,6 @@ This library provides functions to manipulate images, apply filters, perform edg
 
 The algorithms and techniques have been implemented from scratch, serving as a platform to learn and grasp the core concepts of image processing. The main goal is to understand the fundamentals of image manipulation, feature extraction, noise reduction, and more.
 
-Examples:
-<img width="256" alt="original_image" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/02e55eff-9fcd-486f-b1d7-791f500cb683">
-
-<img width="256" alt="brightness_up" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/dd03b23c-6615-4eb9-92cc-71d9f1f732db">
-
-<img width="255" alt="negative" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/5cc04d1c-1a12-414a-8fc0-77fcc162e421">
-
-<img width="255" alt="robinson_mask" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/e290f9d5-4f76-4dd1-8518-82253aa5d2d6">
-
 
 ## Features
 The library offers the following features:
@@ -149,34 +140,6 @@ These masks are convolved with the image using convolution operations to detect 
 Different masks have varying sensitivities to different edge orientations, noise, and fine details. The choice of mask depends on the specific task and the characteristics of the image being processed. Edge detection masks are fundamental tools in image processing for various applications, including computer vision, image segmentation, and feature extraction.
 
 
-## Neighborhood Processing
-
-Neighborhood processing, also known as spatial filtering or convolution, is a fundamental concept in image processing. It involves manipulating the pixels in an image by considering the values of a local region (neighborhood) around each pixel. Neighborhood processing is widely used for various tasks, including image enhancement, noise reduction, edge detection, and feature extraction. Here's how neighborhood processing works:
-
-__1. Local Region (Neighborhood):__
-In neighborhood processing, each pixel in the image is processed by considering its neighboring pixels within a defined local region or window. This local region is usually specified by a small matrix, known as a filter, kernel, or mask. The center of the filter corresponds to the pixel being processed.
-
-__2. Convolution:__
-The core operation in neighborhood processing is convolution. Convolution involves overlaying the filter onto the image, aligning the center of the filter with each pixel, and performing element-wise multiplication between the filter and the image pixels within the local region. The resulting values are then summed up to obtain the new value of the pixel being processed.
-
-__3. Filtering Process:__
-During convolution, the filter coefficients determine how neighboring pixel values contribute to the processed pixel's new value. The filter's coefficients can be pre-defined based on the desired operation, such as blurring, sharpening, edge detection, etc. The filtering process can be linear or nonlinear, depending on the coefficients of the filter.
-
-__4. Impact of Filter Coefficients:__
-The values in the filter determine how the pixel values within the local region influence the output pixel. Positive values emphasize brighter regions, while negative values emphasize darker regions. The filter's coefficients are often normalized to ensure that the output pixel values remain within a certain range.
-
-__5. Sliding Window Operation:__
-To process the entire image, the filter is slid over each pixel, and convolution is applied at each position. This results in a new image where each pixel is processed based on its neighboring pixels. The dimensions of the filter and the size of the local region determine the extent of the impact on each pixel.
-
-__6. Border Handling:__
-A challenge in neighborhood processing is handling the pixels at the image's edges, as they might not have enough neighbors to form a complete local region. Various methods, such as zero-padding, replicate-padding, or wrap-around, can be used to handle the borders appropriately.
-
-__7. Output Image:__
-The result of the neighborhood processing is a new image with modified pixel values. The operation performed during convolution determines how the new image differs from the original one.
-
-Neighborhood processing is versatile and can be applied to a wide range of image-processing tasks. Different filter coefficients and techniques result in various outcomes, such as blurring, sharpening, edge detection, noise reduction, and more. The choice of filter and processing technique depends on the specific task and the desired characteristics of the processed image.
-
-
 ## 2-D Convolution and Correlation
 
 2-D convolution and correlation are mathematical operations used in image processing to process images using filters or kernels. Both operations involve sliding a filter over an image and performing computations at each position. While they have similarities, they differ in how the filter values are combined with the image pixel values. Let's explore each operation:
@@ -190,7 +153,7 @@ __2. 2-D Correlation:__
 
 2-D correlation is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
 
-*Key Differences:*
+__Key Differences:__
 
 The main difference between 2-D convolution and correlation lies in how the filter values are treated. In convolution, the filter is flipped before performing multiplication and summation, while in correlation, the filter is used directly without any flipping. This difference results in distinct behaviors and applications for each operation.
 
