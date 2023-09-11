@@ -11,7 +11,7 @@ The algorithms and techniques have been implemented from scratch, serving as a p
 Negative Image | Brightness_up Image | Image with Robinson Mask:
 
 <img width="255" alt="negative" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/a901370b-a523-4cbd-af38-a3220c5a7bf7">
-<img width="256" alt="brightness_up" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/708cfb19-511c-41b2-a05d-21ce17a5d54f">
+<img width="256" alt="brightness_up" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/d972e391-df85-494d-a844-ef4e70a7f6ad">
 <img width="255" alt="robinson_mask" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/81ea3b65-be16-40c6-9026-fdf6b7964442">
 
 
@@ -165,6 +165,7 @@ Similar to the Prewitt mask, the Sobel mask is another widely used filter for ed
 
 __3. Robinson Mask:__
 The Robinson mask is a set of eight kernels, each detecting edges in different directions (orthogonal and diagonal). It's less commonly used than Prewitt and Sobel masks, but it provides edge detection capabilities in various orientations.
+* 8 Robinson Operators directions: north, south, west, east, northwest, northeast, southeast, southwest. 
 
 ```
 static const int ROBINSON_NTH[] ={-1,0,1,-2,0,2,-1,0,1};
@@ -180,7 +181,7 @@ static const int ROBINSON_SEST[] = {0,-1,-2,1,0,-1,2,1,0};
 
 __4. Kirsch Mask:__
 The Kirsch mask, like the Robinson mask, consists of eight kernels designed to detect edges in different directions. Kirsch masks are used for detecting edges at angles other than the usual horizontal and vertical directions.
-
+* 8 Kirsch Operators directions: north, south, west, east, northwest, northeast, southeast, southwest. 
 ```
 /*Kirsch Operator*/
 static const int KIRSCH_NTH[]={5,5,5,-3,0,-3,-3,-3,-3};
@@ -238,11 +239,11 @@ Different masks have varying sensitivities to different edge orientations, noise
 2-D convolution and correlation are mathematical operations used in image processing to process images using filters or kernels. Both operations involve sliding a filter over an image and performing computations at each position. While they have similarities, they differ in how the filter values are combined with the image pixel values. Let's explore each operation:
 
 __2-D Convolution:__
-In __2-D convolution__, a filter (also known as a kernel) is applied to an image by overlaying the filter onto the image and performing element-wise multiplication followed by summation. The filter's center (also known as the anchor point) is aligned with each pixel in the image, and the filter coefficients are multiplied with the corresponding pixel values within the filter's local region. The resulting values are summed up to determine the new pixel value.
+In 2-D convolution, a filter (also known as a kernel) is applied to an image by overlaying the filter onto the image and performing element-wise multiplication followed by summation. The filter's center (also known as the anchor point) is aligned with each pixel in the image, and the filter coefficients are multiplied with the corresponding pixel values within the filter's local region. The resulting values are summed up to determine the new pixel value.
 Convolution can be used for various image-processing tasks, such as blurring, edge detection, and feature extraction. 
 
 __2-D Correlation:__
-__2-D correlation__ is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
+2-D correlation is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
 
 __Key Differences:__
 The main difference between 2-D convolution and correlation lies in how the filter values are treated. In convolution, the filter is flipped before performing multiplication and summation, while in correlation, the filter is used directly without any flipping. This difference results in distinct behaviors and applications for each operation.
