@@ -4,6 +4,19 @@ This library provides functions to manipulate images, apply filters, perform edg
 
 The algorithms and techniques have been implemented from scratch, serving as a platform to learn and grasp the core concepts of image processing. The main goal is to understand the fundamentals of image manipulation, feature extraction, noise reduction, and more.
 
+## Example: Processed Images
+Original Image:
+<img width="256" alt="original_image" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/6dc89c5a-6f33-43c3-8080-de5af8d9b357">
+
+Negative Image:
+<img width="255" alt="negative" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/a901370b-a523-4cbd-af38-a3220c5a7bf7">
+
+Brightness_up Image:
+<img width="256" alt="brightness_up" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/708cfb19-511c-41b2-a05d-21ce17a5d54f">
+
+Image with Robinson Mask:
+<img width="255" alt="robinson_mask" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/81ea3b65-be16-40c6-9026-fdf6b7964442">
+
 
 ## Features
 The library offers the following features:
@@ -113,31 +126,104 @@ Geometric operations are fundamental in various image processing applications, f
 
 
 ##  Edge Detection
-
 Edge detection is a fundamental technique in image processing that focuses on identifying abrupt changes or transitions in pixel intensity values within an image. Edges represent the boundaries between different objects or regions in an image and are crucial for tasks like object detection, image segmentation, and feature extraction. Edge detection aims to locate the positions of these significant intensity changes, highlighting the outlines and shapes of objects.
 
 
 ### Common Edge Detection Masks:
-
 These are various image processing masks (also known as kernels or filters) used for edge detection and other image enhancement tasks. Each mask represents a convolutional filter that is applied to an image to highlight edges or other features. Here's an explanation of each mask:
 
 __1. Prewitt Mask:__
 The Prewitt mask is a convolutional filter used for edge detection. It consists of two kernels—one for detecting vertical edges and another for detecting horizontal edges. The Prewitt mask emphasizes edges by calculating the gradient of the image in the horizontal and vertical directions.
 
+/*Prewitt Operator - Vertical Edges*/
+/*
+   -1  0   1
+   -1  0   1
+   -1  0   1
+*/
+
+/*Prewitt Operator - Horizontal Edges*/
+/*
+   -1  -1  -1
+    0   0   0
+   -1   -1 -1
+*/
+
 __2. Sobel Mask:__
 Similar to the Prewitt mask, the Sobel mask is another widely used filter for edge detection. It also has separate kernels for detecting vertical and horizontal edges. The Sobel mask is designed to be more sensitive to edges while reducing noise effects compared to the Prewitt mask.
+
+/*Sobel Operator -  Vertical Edges*/
+/* -1  0  1
+   -2  0  2
+   -1  0  1
+*/
+
+/*Sobele Operator -  Horizontal Edges*/
+/*  -1  -2  -1
+     0   0   0
+     1   2   1
+*/
 
 __3. Robinson Mask:__
 The Robinson mask is a set of eight kernels, each detecting edges in different directions (orthogonal and diagonal). It's less commonly used than Prewitt and Sobel masks, but it provides edge detection capabilities in various orientations.
 
+static const int ROBINSON_NTH[] ={-1,0,1,-2,0,2,-1,0,1};
+static const int ROBINSON_STH[] ={1,0,-1,2,0,-2,1,0,-1};
+static const int ROBINSON_WST[] ={1,2,1,0,0,0,-1,-2,-1};
+static const int ROBINSON_EST[] ={-1,-2,-1,0,0,0,1,2,1};
+
+static const int ROBINSON_NWST[] = {0,1,2,-1,0,1,-2,-1,0};
+static const int ROBINSON_NEST[] = {-2,-1,0,-1,0,1,0,1,2};
+static const int ROBINSON_SWST[] = {2,1,0,1,0,-1,0,-1,-2};
+static const int ROBINSON_SEST[] = {0,-1,-2,1,0,-1,2,1,0};
+
 __4. Kirsch Mask:__
 The Kirsch mask, like the Robinson mask, consists of eight kernels designed to detect edges in different directions. Kirsch masks are used for detecting edges at angles other than the usual horizontal and vertical directions.
+
+/*Kirsch Operator*/
+static const int KIRSCH_NTH[]={5,5,5,-3,0,-3,-3,-3,-3};
+static const int KIRSCH_STH[]={-3,-3,-3,-3,0,-3,5,5,5};
+static const int KIRSCH_EST[]={-3,-3,5,-3,0,5,-3,-3,5};
+static const int KIRSCH_WST[]={5,-3,-3,5,0,-3,5,-3,-3};
+
+static const int KIRSCH_NWST[] = {0,1,2,-1,0,1,-2,-1,0};
+static const int KIRSCH_NEST[] = {-2,-1,0,-1,0,1,0,1,2};
+static const int KIRSCH_SWST[] = {2,1,0,1,0,-1,0,-1,-2};
+static const int KIRSCH_SEST[] = {0,-1,-2,1,0,-1,2,1,0};
+
+
 
 __5. Laplacian Mask:__
 The Laplacian mask is used for detecting areas of rapid intensity change in all directions. It calculates the second derivative of the image and highlights regions with intensity variations, including both edges and corners. Laplacian of Gaussian (LoG) is a variant that combines Gaussian smoothing and Laplacian filtering for edge detection.
 
+/*Laplacian Negative Mask*/
+/* 
+  0 -1 0
+  -1 4 -1
+  0 -1 0
+*/
+
+/*Laplacian Positive Mask*/
+/* 
+  0 1 0
+  1 -4 1
+  0 1 0
+*/
+
 __6. Robert's Mask:__
 Robert's mask is used for detecting edges by calculating the gradient along the diagonals of the image. It uses two small 2x2 kernels—one for the 45-degree diagonal and another for the 135-degree diagonal.
+
+/*Roberts Mask  Gx*/
+/* 
+  1 0
+  0 -1
+*/
+
+/*Roberts Mask Gy*/
+/*
+  0  1
+ -1  0
+*/
 
 These masks are convolved with the image using convolution operations to detect edges or other features. Convolution involves placing the center of the mask at each pixel of the image and calculating the weighted sum of the pixel values under the mask. The result of convolution highlights areas of the image where the mask aligns with edges or significant intensity changes.
 
@@ -145,20 +231,16 @@ Different masks have varying sensitivities to different edge orientations, noise
 
 
 ## 2-D Convolution and Correlation
-
 2-D convolution and correlation are mathematical operations used in image processing to process images using filters or kernels. Both operations involve sliding a filter over an image and performing computations at each position. While they have similarities, they differ in how the filter values are combined with the image pixel values. Let's explore each operation:
 
 __2-D Convolution:__
-
-In 2-D convolution, a filter (also known as a kernel) is applied to an image by overlaying the filter onto the image and performing element-wise multiplication followed by summation. The filter's center (also known as the anchor point) is aligned with each pixel in the image, and the filter coefficients are multiplied with the corresponding pixel values within the filter's local region. The resulting values are summed up to determine the new pixel value.
+In __2-D convolution__, a filter (also known as a kernel) is applied to an image by overlaying the filter onto the image and performing element-wise multiplication followed by summation. The filter's center (also known as the anchor point) is aligned with each pixel in the image, and the filter coefficients are multiplied with the corresponding pixel values within the filter's local region. The resulting values are summed up to determine the new pixel value.
 Convolution can be used for various image-processing tasks, such as blurring, edge detection, and feature extraction. 
 
 __2-D Correlation:__
-
-2-D correlation is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
+__2-D correlation__ is similar to convolution but doesn't involve flipping the filter. Instead, the filter is directly applied to the image without any changes to its coefficients. Correlation is often used in tasks like template matching, where a smaller image (template) is matched against a larger image to find instances of the template.
 
 __Key Differences:__
-
 The main difference between 2-D convolution and correlation lies in how the filter values are treated. In convolution, the filter is flipped before performing multiplication and summation, while in correlation, the filter is used directly without any flipping. This difference results in distinct behaviors and applications for each operation.
 
 In both cases, the filter coefficients define the nature of the operation, and different filter designs lead to different image processing outcomes.
