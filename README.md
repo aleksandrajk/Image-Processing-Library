@@ -5,16 +5,13 @@ This library provides functions to manipulate images, apply filters, perform edg
 The algorithms and techniques have been implemented from scratch, serving as a platform to learn and grasp the core concepts of image processing. The main goal is to understand the fundamentals of image manipulation, feature extraction, noise reduction, and more.
 
 ## Example: Processed Images
-Original Image:
-<img width="256" alt="original_image" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/6dc89c5a-6f33-43c3-8080-de5af8d9b357">
 
-Negative Image:
+<img width="255" alt="original_camera_image" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/c4bc7ea9-21c7-41e4-be24-37dea6673cd3">
+
+Negative Image | Brightness_up Image | Image with Robinson Mask:
+
 <img width="255" alt="negative" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/a901370b-a523-4cbd-af38-a3220c5a7bf7">
-
-Brightness_up Image:
 <img width="256" alt="brightness_up" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/708cfb19-511c-41b2-a05d-21ce17a5d54f">
-
-Image with Robinson Mask:
 <img width="255" alt="robinson_mask" src="https://github.com/aleksandrajk/Image-Processing-Library/assets/55165756/81ea3b65-be16-40c6-9026-fdf6b7964442">
 
 
@@ -134,7 +131,7 @@ These are various image processing masks (also known as kernels or filters) used
 
 __1. Prewitt Mask:__
 The Prewitt mask is a convolutional filter used for edge detection. It consists of two kernels—one for detecting vertical edges and another for detecting horizontal edges. The Prewitt mask emphasizes edges by calculating the gradient of the image in the horizontal and vertical directions.
-
+```
 /*Prewitt Operator - Vertical Edges*/
 /*
    -1  0   1
@@ -148,10 +145,11 @@ The Prewitt mask is a convolutional filter used for edge detection. It consists 
     0   0   0
    -1   -1 -1
 */
+```
 
 __2. Sobel Mask:__
 Similar to the Prewitt mask, the Sobel mask is another widely used filter for edge detection. It also has separate kernels for detecting vertical and horizontal edges. The Sobel mask is designed to be more sensitive to edges while reducing noise effects compared to the Prewitt mask.
-
+```
 /*Sobel Operator -  Vertical Edges*/
 /* -1  0  1
    -2  0  2
@@ -163,10 +161,12 @@ Similar to the Prewitt mask, the Sobel mask is another widely used filter for ed
      0   0   0
      1   2   1
 */
+```
 
 __3. Robinson Mask:__
 The Robinson mask is a set of eight kernels, each detecting edges in different directions (orthogonal and diagonal). It's less commonly used than Prewitt and Sobel masks, but it provides edge detection capabilities in various orientations.
 
+```
 static const int ROBINSON_NTH[] ={-1,0,1,-2,0,2,-1,0,1};
 static const int ROBINSON_STH[] ={1,0,-1,2,0,-2,1,0,-1};
 static const int ROBINSON_WST[] ={1,2,1,0,0,0,-1,-2,-1};
@@ -176,10 +176,12 @@ static const int ROBINSON_NWST[] = {0,1,2,-1,0,1,-2,-1,0};
 static const int ROBINSON_NEST[] = {-2,-1,0,-1,0,1,0,1,2};
 static const int ROBINSON_SWST[] = {2,1,0,1,0,-1,0,-1,-2};
 static const int ROBINSON_SEST[] = {0,-1,-2,1,0,-1,2,1,0};
+```
 
 __4. Kirsch Mask:__
 The Kirsch mask, like the Robinson mask, consists of eight kernels designed to detect edges in different directions. Kirsch masks are used for detecting edges at angles other than the usual horizontal and vertical directions.
 
+```
 /*Kirsch Operator*/
 static const int KIRSCH_NTH[]={5,5,5,-3,0,-3,-3,-3,-3};
 static const int KIRSCH_STH[]={-3,-3,-3,-3,0,-3,5,5,5};
@@ -190,12 +192,12 @@ static const int KIRSCH_NWST[] = {0,1,2,-1,0,1,-2,-1,0};
 static const int KIRSCH_NEST[] = {-2,-1,0,-1,0,1,0,1,2};
 static const int KIRSCH_SWST[] = {2,1,0,1,0,-1,0,-1,-2};
 static const int KIRSCH_SEST[] = {0,-1,-2,1,0,-1,2,1,0};
-
-
+```
 
 __5. Laplacian Mask:__
 The Laplacian mask is used for detecting areas of rapid intensity change in all directions. It calculates the second derivative of the image and highlights regions with intensity variations, including both edges and corners. Laplacian of Gaussian (LoG) is a variant that combines Gaussian smoothing and Laplacian filtering for edge detection.
 
+```
 /*Laplacian Negative Mask*/
 /* 
   0 -1 0
@@ -209,10 +211,12 @@ The Laplacian mask is used for detecting areas of rapid intensity change in all 
   1 -4 1
   0 1 0
 */
+```
 
 __6. Robert's Mask:__
 Robert's mask is used for detecting edges by calculating the gradient along the diagonals of the image. It uses two small 2x2 kernels—one for the 45-degree diagonal and another for the 135-degree diagonal.
 
+```
 /*Roberts Mask  Gx*/
 /* 
   1 0
@@ -224,7 +228,7 @@ Robert's mask is used for detecting edges by calculating the gradient along the 
   0  1
  -1  0
 */
-
+```
 These masks are convolved with the image using convolution operations to detect edges or other features. Convolution involves placing the center of the mask at each pixel of the image and calculating the weighted sum of the pixel values under the mask. The result of convolution highlights areas of the image where the mask aligns with edges or significant intensity changes.
 
 Different masks have varying sensitivities to different edge orientations, noise, and fine details. The choice of mask depends on the specific task and the characteristics of the image being processed. Edge detection masks are fundamental tools in image processing for various applications, including computer vision, image segmentation, and feature extraction.
